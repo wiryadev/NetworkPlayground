@@ -2,20 +2,27 @@ package com.wiryadev.networkplayground.connection
 
 import android.content.Context
 import android.net.NetworkRequest
-import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.fragment.app.Fragment
-import com.wiryadev.networkplayground.connection.Connection.Lost
-import io.reactivex.rxjava3.core.Emitter
+import androidx.lifecycle.LifecycleOwner
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableEmitter
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+
+@Composable
+fun rememberRxConnectionObserver(
+    networkRequest: NetworkRequest? = null,
+    context: Context = LocalContext.current,
+    owner: LifecycleOwner = LocalLifecycleOwner.current,
+): RxConnectionObserver = remember(context, owner) {
+    val observer = RxConnectionObserver(context, networkRequest ?: defaultNetworkRequest)
+    owner.lifecycle.addObserver(observer)
+    observer
+}
 
 fun ComponentActivity.rxConnectionObserver(
     networkRequest: NetworkRequest? = null

@@ -3,18 +3,31 @@ package com.wiryadev.networkplayground.connection
 import android.content.Context
 import android.net.NetworkRequest
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wiryadev.networkplayground.connection.Connection.Lost
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+
+@Composable
+fun rememberLiveDataConnectionObserver(
+    networkRequest: NetworkRequest? = null,
+    context: Context = LocalContext.current,
+    owner: LifecycleOwner = LocalLifecycleOwner.current,
+): LiveDataConnectionObserver = remember(context, owner) {
+    val observer = LiveDataConnectionObserver(context, networkRequest ?: defaultNetworkRequest)
+    owner.lifecycle.addObserver(observer)
+    observer
+}
 
 fun ComponentActivity.livedataConnectionObserver(
     networkRequest: NetworkRequest? = null
-): Lazy<LivedataConnectionObserver> = lazy {
-    val connectionObserver = LivedataConnectionObserver(
+): Lazy<LiveDataConnectionObserver> = lazy {
+    val connectionObserver = LiveDataConnectionObserver(
         baseContext,
         networkRequest ?: defaultNetworkRequest
     )
@@ -24,8 +37,8 @@ fun ComponentActivity.livedataConnectionObserver(
 
 fun Fragment.livedataConnectionObserver(
     networkRequest: NetworkRequest? = null
-): Lazy<LivedataConnectionObserver> = lazy {
-    val connectionObserver = LivedataConnectionObserver(
+): Lazy<LiveDataConnectionObserver> = lazy {
+    val connectionObserver = LiveDataConnectionObserver(
         requireContext(),
         networkRequest ?: defaultNetworkRequest
     )
@@ -33,7 +46,7 @@ fun Fragment.livedataConnectionObserver(
     connectionObserver
 }
 
-class LivedataConnectionObserver(
+class LiveDataConnectionObserver(
     context: Context,
     networkRequest: NetworkRequest,
 ) : ConnectionObserverImpl(context, networkRequest) {

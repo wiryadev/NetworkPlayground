@@ -29,6 +29,7 @@ class ObserveConnectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityObserveConnectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.title = "Activity"
 
         livedataConnectionObserver.connection.observe(this) {
             binding.tvConnectionLivedata.text = it.asString()

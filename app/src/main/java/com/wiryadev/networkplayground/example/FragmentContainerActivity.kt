@@ -16,6 +16,7 @@ class FragmentContainerActivity : AppCompatActivity() {
                 .replace(R.id.container, ObserveConnectionFragment.newInstance())
                 .commitNow()
         }
+        supportActionBar?.title = "Fragment"
     }
 
     companion object {

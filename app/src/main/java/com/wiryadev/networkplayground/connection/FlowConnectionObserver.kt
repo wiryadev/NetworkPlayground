@@ -3,11 +3,27 @@ package com.wiryadev.networkplayground.connection
 import android.content.Context
 import android.net.NetworkRequest
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.wiryadev.networkplayground.connection.Connection.Lost
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+
+@Composable
+fun rememberFlowConnectionObserver(
+    networkRequest: NetworkRequest? = null,
+    context: Context = LocalContext.current,
+    owner: LifecycleOwner = LocalLifecycleOwner.current,
+): FlowConnectionObserver = remember(context, owner) {
+    val observer = FlowConnectionObserver(context, networkRequest ?: defaultNetworkRequest)
+    owner.lifecycle.addObserver(observer)
+    observer
+}
 
 fun ComponentActivity.flowConnectionObserver(
     networkRequest: NetworkRequest? = null

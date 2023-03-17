@@ -14,20 +14,25 @@
         android:theme="@style/Theme.NetworkPlayground"
         tools:targetApi="31">
         <activity
-            android:name=".example.FragmentContainerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".example.ObserveConnectionActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.NetworkPlayground">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".example.FragmentContainerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".example.ObserveConnectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".example.ObserveConnectionComposeActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

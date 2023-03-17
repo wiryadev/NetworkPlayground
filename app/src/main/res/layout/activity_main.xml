@@ -24,4 +24,14 @@
         android:layout_height="wrap_content"
         android:text="Fragment" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnToCompose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Compose" />
+
 </LinearLayout>

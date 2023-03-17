@@ -1,14 +1,11 @@
 package com.wiryadev.networkplayground
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import com.wiryadev.networkplayground.connection.flowConnectionObserver
+import androidx.appcompat.app.AppCompatActivity
 import com.wiryadev.networkplayground.databinding.ActivityMainBinding
 import com.wiryadev.networkplayground.example.FragmentContainerActivity
 import com.wiryadev.networkplayground.example.ObserveConnectionActivity
-import kotlinx.coroutines.launch
+import com.wiryadev.networkplayground.example.ObserveConnectionComposeActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +23,9 @@ class MainActivity : AppCompatActivity() {
             }
             btnToFragment.setOnClickListener {
                 FragmentContainerActivity.start(this@MainActivity)
+            }
+            btnToCompose.setOnClickListener {
+                ObserveConnectionComposeActivity.start(this@MainActivity)
             }
         }
     }
